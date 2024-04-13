@@ -26,7 +26,7 @@ const input = ref<HTMLInputElement | null>(null)
 
 const inputClasses = ref<string[]>([
   'px-5',
-  'py-4',
+  'py-3.5',
   'rounded-md',
   'font-medium',
   'border',

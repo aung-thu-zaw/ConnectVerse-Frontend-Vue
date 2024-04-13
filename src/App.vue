@@ -1,9 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+const theme = ref(localStorage.getItem('color-theme') || 'dark')
+
+onMounted(() => {
+  const htmlTag = document.documentElement
+
+  htmlTag.classList.add('light')
+  if (theme.value === 'dark') {
+    htmlTag.classList.add('dark')
+  }
+})
+</script>
 
 <template>
-  <div
-    class="min-h-screen w-full bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text"
-  >
+  <div class="">
     <RouterView />
   </div>
 </template>
