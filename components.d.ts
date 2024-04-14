@@ -27,6 +27,7 @@ declare module 'vue' {
     Label: typeof import('./src/components/Form/Fields/Label.vue')['default']
     MainChatWindow: typeof import('./src/components/MainChatWindow.vue')['default']
     MainMenuActionDropdown: typeof import('./src/components/Dropdowns/MainMenuActionDropdown.vue')['default']
+    MazPhoneNumberInput: typeof import('maz-ui/components/MazPhoneNumberInput')['default']
     MessageActionDropdown: typeof import('./src/components/Dropdowns/MessageActionDropdown.vue')['default']
     MessageBoxNavBar: typeof import('./src/components/MessageBoxNavBar.vue')['default']
     MessageInputForm: typeof import('./src/components/Form/MessageInputForm.vue')['default']

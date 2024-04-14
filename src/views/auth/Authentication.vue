@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import logo from '@/assets/images/logo-color.png'
 import ValidationError from '@/components/Form/Fields/ValidationError.vue'
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
-import Label from '@/components/Form/Fields/Label.vue'
-import InputField from '@/components/Form/Fields/InputField.vue'
-import { ref } from 'vue'
 import SolidButton from '@/components/Buttons/SolidButton.vue'
+import logo from '@/assets/images/logo-color.png'
+import { ref } from 'vue'
 
 const phoneNumber = ref()
 const results = ref()
@@ -23,42 +21,29 @@ const results = ref()
         registered, simply enter your phone number to log in. Let's get started!
       </p>
 
-      <form @submit.prevent="" class="space-y-6">
-        <div>
-          <Label htmlFor="display-name" label="Display Name" required />
+      <form @submit.prevent="">
+        <div class="flex items-center justify-center space-x-5">
+          <div>
+            <MazPhoneNumberInput
+              v-model="phoneNumber"
+              show-code-on-list
+              @update="results = $event"
+              size="md"
+              block
+              class="text-sm border rounded-md border-gray-300 dark:border-neutral-500"
+              color="primary"
+              placeholder="Enter phone number"
+            />
 
-          <InputField
-            name="display-name"
-            type="text"
-            placeholder="Enter Display Name"
-            v-model="phoneNumber"
-          />
+            <ValidationError message="" />
+          </div>
 
-          <ValidationError message="" />
-        </div>
-
-        <div>
-          <Label htmlFor="phone-number" label="Phone Number" required />
-
-          <MazPhoneNumberInput
-            v-model="phoneNumber"
-            show-code-on-list
-            @update="results = $event"
-            size="md"
-            block
-            class="text-sm border rounded-md border-gray-300 dark:border-neutral-500"
-            color="primary"
-            placeholder="Enter phone number"
-          />
-
-          <ValidationError message="" />
-        </div>
-
-        <div class="">
-          <SolidButton class="w-full">
-            Submit
-            <i class="fa-solid fa-paper-plane ml-3"></i>
-          </SolidButton>
+          <div>
+            <SolidButton class="w-full py-[13.5px]">
+              Submit
+              <i class="fa-solid fa-paper-plane ml-3"></i>
+            </SolidButton>
+          </div>
         </div>
 
         <ValidationError message="" />
