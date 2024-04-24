@@ -3,9 +3,21 @@ import InputField from '@/components/Form/Fields/InputField.vue'
 import ValidationError from '@/components/Form/Fields/ValidationError.vue'
 import Label from '@/components/Form/Fields/Label.vue'
 import SolidButton from '@/components/Buttons/SolidButton.vue'
-import { ref } from 'vue'
+import { reactive } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+// @ts-ignore
+import { CirclesToRhombusesSpinner } from 'epic-spinners'
 
-const phone = ref('')
+const store = useAuthStore()
+
+const form = reactive({
+  username: '',
+  display_name: '',
+  phone_number: '',
+  phone_country_code: '',
+  recovery_email: '',
+  avatar: ''
+})
 </script>
 
 <template>
@@ -22,9 +34,6 @@ const phone = ref('')
             alt="Logo"
             class="relative w-full h-full object-cover"
           />
-          <!-- <button class="absolute bottom-5 right-0 z-50 bg-black bg-opacity-40">
-            <i class="fa-solid fa-camera-rotate"></i>
-          </button> -->
         </div>
 
         <button
@@ -42,17 +51,22 @@ const phone = ref('')
           Enter your name and add profile photo.
         </p>
       </div>
-      <form @submit.prevent="" class="space-y-6 w-[400px]">
+      <form @submit.prevent="store.createProfile(form)" class="space-y-6 w-[400px]">
         <div>
           <Label htmlFor="username" label="Username" required />
 
-          <InputField name="username" type="text" placeholder="Enter Username" v-model="phone" />
+          <InputField
+            name="username"
+            type="text"
+            placeholder="Enter Username"
+            v-model="form.username"
+          />
 
           <p class="text-xs font-medium text-gray-400 my-3">
             Username should be lowercase and space for using '-' or '_'
           </p>
 
-          <ValidationError message="" />
+          <ValidationError :message="store.errors?.username || ''" />
         </div>
 
         <div>
@@ -62,10 +76,10 @@ const phone = ref('')
             name="display-name"
             type="text"
             placeholder="Enter Display Name"
-            v-model="phone"
+            v-model="form.display_name"
           />
 
-          <ValidationError message="" />
+          <ValidationError :message="store.errors?.display_name || ''" />
         </div>
 
         <div>
@@ -75,16 +89,27 @@ const phone = ref('')
             name="recovery-email"
             type="email"
             placeholder="Enter Your Email"
-            v-model="phone"
+            v-model="form.recovery_email"
           />
 
-          <ValidationError message="" />
+          <ValidationError :message="store.errors?.recovery_email || ''" />
         </div>
 
         <div>
-          <SolidButton class="w-full">
-            Submit
-            <i class="fa-solid fa-paper-plane ml-3"></i>
+          <SolidButton class="w-full text-center">
+            <span v-if="!store.isLoading" class="w-full">
+              Submit
+              <i class="fa-solid fa-paper-plane ml-3"></i>
+            </span>
+            <div v-else class="w-full flex items-center justify-center space-x-1.5">
+              <span> Submitting </span>
+              <circles-to-rhombuses-spinner
+                :animation-duration="1200"
+                :circles-num="3"
+                :circle-size="5"
+                color="#ffffff"
+              />
+            </div>
           </SolidButton>
         </div>
       </form>

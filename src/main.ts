@@ -2,7 +2,7 @@ import '@/assets/css/tailwind.css'
 import 'maz-ui/css/main.css'
 
 import { createApp } from 'vue'
-import { pinia } from '@/plugins/pinia'
+import pinia from '@/plugins/pinia'
 import axios from '@/plugins/axios'
 
 import App from '@/App.vue'

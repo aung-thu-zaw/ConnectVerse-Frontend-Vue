@@ -8,11 +8,12 @@ interface InputFieldProps {
   placeholder?: string
   class?: string
   autofocus?: boolean
+  autocomplete?: 'on'|'off'
   readOnly?: boolean
   disabled?: boolean
   required?: boolean
-  maxLength?: number
-  minLength?: number
+  maxLength?: string
+  minLength?: string
   pattern?: string
   defaultValue?: string
   modelValue: string
@@ -66,11 +67,12 @@ const handleInput = (event: Event) => {
     :readonly="readOnly"
     :disabled="disabled"
     :required="required"
+    :pattern="pattern"
     :maxlength="maxLength"
     :minlength="minLength"
-    :pattern="pattern"
     :defaultValue="defaultValue"
     :autofocus="autofocus"
+    :autocomplete="autocomplete"
     @input="handleInput"
   />
 </template>

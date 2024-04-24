@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import ChatSideNav from '@/components/ChatSideNav.vue'
 import MainChatWindow from '@/components/MainChatWindow.vue'
+import { useAuthStore } from '@/stores/auth'
+import { onMounted } from 'vue'
+
+const store = useAuthStore()
+
+onMounted(() => store.getAuthenticatedUser())
 </script>
 
 <template>

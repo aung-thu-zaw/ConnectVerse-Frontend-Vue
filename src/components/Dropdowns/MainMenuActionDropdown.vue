@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import ToolButton from '@/components/Buttons/ToolButton.vue'
 // import ToggleModeButton from '@/components/ToggleModeButton.vue'
 import DropdownItem from '@/components/DropdownItem.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const dropdownOpen = ref(false)
 const mainMenuActionButtonRef = ref<HTMLButtonElement | null>(null)
@@ -23,6 +24,8 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+const store = useAuthStore()
 </script>
 
 <template>
@@ -48,6 +51,13 @@ onUnmounted(() => {
         <DropdownItem type="button" icon="fa-solid fa-folder" label="Folders" />
         <!-- <ToggleModeButton /> -->
         <DropdownItem type="button" icon="fa-solid fa-bug" label="Report Bug" />
+        <DropdownItem
+          v-show="store.isAuthenticated"
+          type="button"
+          icon="fa-solid fa-right-from-bracket"
+          label="Logout"
+          @click="store.logout()"
+        />
       </div>
     </div>
   </div>

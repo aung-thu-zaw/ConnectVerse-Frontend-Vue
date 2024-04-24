@@ -49,6 +49,8 @@ declare module 'vue' {
     SenderImageAttachmentBubble: typeof import('./src/components/ChatBubbles/SenderImageAttachmentBubble.vue')['default']
     SenderMessageBubble: typeof import('./src/components/ChatBubbles/SenderMessageBubble.vue')['default']
     SettingAside: typeof import('./src/components/Asides/SettingAside.vue')['default']
+    SignInForm: typeof import('./src/components/Auth/SignInForm.vue')['default']
+    SignUpForm: typeof import('./src/components/Auth/SignUpForm.vue')['default']
     SolidButton: typeof import('./src/components/Buttons/SolidButton.vue')['default']
     TextareaField: typeof import('./src/components/Form/Fields/TextareaField.vue')['default']
     ToggleModeButton: typeof import('./src/components/ToggleModeButton.vue')['default']

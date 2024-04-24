@@ -15,6 +15,7 @@
     "dependencies": {
         "autoprefixer": "^10",
         "axios": "^1.6.8",
+        "epic-spinners": "^2.0.0",
         "libphonenumber-js": "^1.10.60",
         "maz-ui": "^3.39.1",
         "pinia": "^2.1.7",

@@ -1,12 +1,33 @@
 <script setup lang="ts">
 import ValidationError from '@/components/Form/Fields/ValidationError.vue'
-import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
+import MazPhoneNumberInput, {
+  type CountryCode,
+  type Result
+} from 'maz-ui/components/MazPhoneNumberInput'
 import SolidButton from '@/components/Buttons/SolidButton.vue'
 import logo from '@/assets/images/logo-color.png'
-import { ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+// @ts-ignore
+import { CirclesToRhombusesSpinner } from 'epic-spinners'
 
-const phoneNumber = ref()
-const results = ref()
+const store = useAuthStore()
+
+const results = ref<Result | null>(null)
+
+const form = reactive({
+  phone_number: '',
+  phone_country_code: ''
+})
+
+watch(
+  () => results.value,
+  (newResult) => {
+    if (newResult && newResult.countryCode) {
+      form.phone_country_code = newResult.countryCode as CountryCode
+    }
+  }
+)
 </script>
 
 <template>
@@ -21,11 +42,11 @@ const results = ref()
         registered, simply enter your phone number to log in. Let's get started!
       </p>
 
-      <form @submit.prevent="">
+      <form @submit.prevent="store.requestVerificationCode(form)">
         <div class="flex items-center justify-center space-x-5">
           <div>
             <MazPhoneNumberInput
-              v-model="phoneNumber"
+              v-model="form.phone_number"
               show-code-on-list
               @update="results = $event"
               size="md"
@@ -35,18 +56,27 @@ const results = ref()
               placeholder="Enter phone number"
             />
 
-            <ValidationError message="" />
+            <ValidationError :message="store.errors?.phone_number || ''" />
           </div>
 
           <div>
             <SolidButton class="w-full py-[13.5px]">
-              Submit
-              <i class="fa-solid fa-paper-plane ml-3"></i>
+              <span v-if="!store.isLoading">
+                Submit
+                <i class="fa-solid fa-paper-plane ml-3"></i>
+              </span>
+              <div v-else class="flex items-center space-x-1.5">
+                <span> Submitting </span>
+                <circles-to-rhombuses-spinner
+                  :animation-duration="1200"
+                  :circles-num="3"
+                  :circle-size="5"
+                  color="#ffffff"
+                />
+              </div>
             </SolidButton>
           </div>
         </div>
-
-        <ValidationError message="" />
       </form>
     </div>
   </div>

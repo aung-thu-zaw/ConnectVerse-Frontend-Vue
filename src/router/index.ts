@@ -14,9 +14,14 @@ const router = createRouter({
       component: () => import('@/views/auth/Verification.vue')
     },
     {
+      path: '/auth/two-factor',
+      name: 'auth.two-factor',
+      component: () => import('@/views/auth/TwoFactorAuth.vue')
+    },
+    {
       path: '/profile/create',
       name: 'profile.create',
-      component: () => import('@/views/CreateProfile.vue')
+      component: () => import('@/views/auth/CreateProfile.vue')
     },
     {
       path: '/',

@@ -1,9 +1,28 @@
 <script setup lang="ts">
 import logo from '@/assets/images/logo-color.png'
 import InputField from '@/components/Form/Fields/InputField.vue'
-import { ref } from 'vue'
+import ValidationError from '@/components/Form/Fields/ValidationError.vue'
+import { reactive, watch } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+// @ts-ignore
+import { HalfCircleSpinner } from 'epic-spinners'
 
-const phone = ref('')
+const store = useAuthStore()
+
+const form = reactive({
+  verification_code: ''
+})
+
+watch(
+  () => form.verification_code,
+  (newValue) => {
+    if (form.verification_code.length === 6) {
+      store.verifyVerificationCode(newValue)
+    } else if (form.verification_code.length < 6 && store.errors?.verification_code) {
+      store.$patch({ errors: null })
+    }
+  }
+)
 </script>
 
 <template>
@@ -39,12 +58,31 @@ const phone = ref('')
         <div class="min-w-[260px]">
           <InputField
             name="verification-code"
-            type="text"
+            type="number"
             placeholder="Enter 6-Digit Verification Code"
-            v-model="phone"
+            v-model="form.verification_code"
+            maxLength="6"
+            autocomplete="off"
           />
+
+          <ValidationError :message="store.errors?.verification_code || ''" />
         </div>
+      </div>
+      <div v-if="form.verification_code.length === 6 && !store.errors?.verification_code">
+        <half-circle-spinner :animation-duration="1000" :size="30" color="#4CAF50" />
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+</style>

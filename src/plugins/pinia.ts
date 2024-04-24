@@ -2,9 +2,11 @@ import { markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import router from '@/router'
 
-export const pinia = createPinia()
+const pinia = createPinia()
 
 pinia.use(({ store, app }) => {
   store.router = markRaw(router)
-  store.$axios = app.config.globalProperties.$axios
+  store.axios = markRaw(app.config.globalProperties.$axios)
 })
+
+export default pinia
