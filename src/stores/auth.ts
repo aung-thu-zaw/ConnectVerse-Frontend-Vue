@@ -4,7 +4,8 @@ import type {
   ProfileForm,
   Error,
   User,
-  Authorization
+  Authorization,
+  AdditionalPasswordForm
 } from '@/types/auth'
 import type { Axios } from 'axios'
 import { defineStore } from 'pinia'
@@ -82,6 +83,23 @@ export const useAuthStore = defineStore('auth', () => {
     )
   }
 
+  const loginWithAdditionalPassword = async (form: AdditionalPasswordForm) => {
+    const onSuccess = (response: any) => {
+      handleSuccessResponse(response, user, isAuthenticated, authorization, router)
+    }
+
+    handleRequest(
+      axios.post('/auth/login/additional-password', {
+        ...form,
+        phone_number: phoneVerification.value?.phone_number,
+        phone_country_code: phoneVerification.value?.phone_country_code
+      }),
+      onSuccess,
+      errors,
+      isLoading
+    )
+  }
+
   const logout = async (): Promise<void> => {
     try {
       const response = await axios.post('/auth/logout')
@@ -123,6 +141,7 @@ export const useAuthStore = defineStore('auth', () => {
     requestVerificationCode,
     verifyVerificationCode,
     createProfile,
+    loginWithAdditionalPassword,
     logout,
     getAuthenticatedUser
   }

@@ -23,6 +23,7 @@ export interface Error {
   display_name?: string
   avatar?: string
   recovery_email?: string
+  additional_password?: string
 }
 
 export interface AuthForm {
@@ -36,6 +37,12 @@ export interface ProfileForm {
   phone_number: string
   phone_country_code: string
   recovery_email: string | null
+}
+
+export interface AdditionalPasswordForm {
+  phone_number: string
+  phone_country_code: string
+  additional_password: string
 }
 
 export interface PhoneVerification {

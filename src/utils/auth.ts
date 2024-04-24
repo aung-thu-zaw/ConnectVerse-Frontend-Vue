@@ -32,6 +32,8 @@ export const handleErrorResponse = (error: any, errors: Ref<Error | null>) => {
     error.response.data.message === 'Invalid verification code!'
   ) {
     errors.value = { verification_code: error.response.data.message }
+  } else if (error.response.data.message === 'Password incorrect!') {
+    errors.value = { additional_password: error.response.data.message }
   } else {
     errors.value = error.response?.data?.errors
   }

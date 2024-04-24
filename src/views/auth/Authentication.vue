@@ -55,8 +55,6 @@ watch(
               color="primary"
               placeholder="Enter phone number"
             />
-
-            <ValidationError :message="store.errors?.phone_number || ''" />
           </div>
 
           <div>
@@ -77,6 +75,7 @@ watch(
             </SolidButton>
           </div>
         </div>
+        <ValidationError :message="store.errors?.phone_number || ''" />
       </form>
     </div>
   </div>
