@@ -1,34 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import authRoutes from '@/router/auth'
+import chatRoutes from '@/router/chat'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/auth',
-      name: 'authentication',
-      component: () => import('@/views/auth/Authentication.vue')
-    },
-    {
-      path: '/auth/verification',
-      name: 'auth.verification',
-      component: () => import('@/views/auth/Verification.vue')
-    },
-    {
-      path: '/auth/two-factor',
-      name: 'auth.two-factor',
-      component: () => import('@/views/auth/TwoFactorAuth.vue')
-    },
-    {
-      path: '/profile/create',
-      name: 'profile.create',
-      component: () => import('@/views/auth/CreateProfile.vue')
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/Home.vue')
+
+  routes: [...authRoutes, ...chatRoutes]
+})
+
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.middleware) {
+    const middlewareArray = Array.isArray(to.meta.middleware)
+      ? to.meta.middleware
+      : [to.meta.middleware]
+    for (const middleware of middlewareArray) {
+      await middleware(to, from, next)
     }
-  ]
+  } else {
+    next()
+  }
 })
 
 export default router
