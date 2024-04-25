@@ -36,7 +36,7 @@ const editMode = ref<boolean>(false)
       </button>
     </div>
 
-    <div class="p-3 h-[700px] overflow-y-scroll hide-scrollbar">
+    <div class="p-3 h-[665px] overflow-y-scroll hide-scrollbar">
       <RecentCallList :edit-mode="editMode" v-for="index in 13" :key="index" :index="index" />
     </div>
   </div>

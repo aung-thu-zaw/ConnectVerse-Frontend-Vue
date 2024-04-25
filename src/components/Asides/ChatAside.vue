@@ -17,7 +17,7 @@ import MainMenuActionDropdown from '@/components/Dropdowns/MainMenuActionDropdow
       <FolderTabs />
     </div>
 
-    <div class="p-3 h-[645px] overflow-y-scroll hide-scrollbar">
+    <div class="p-3 h-[610px] overflow-y-scroll hide-scrollbar">
       <ChatList />
       <ChatList />
       <ChatList />

@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-  content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: [
+    './*.html',
+    './ecommerce/*.html',
+    './assets/**/*.js',
+    './public/**/*.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -50,5 +56,5 @@ export default {
       zoomOut: 'zoomOut 0.3s forwards'
     }
   },
-  plugins: []
+  plugins: [require('tailgrids/plugin')]
 }

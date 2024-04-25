@@ -28,7 +28,7 @@ import MessageInputForm from '@/components/Form/MessageInputForm.vue'
       }"
     >
       <div
-        class="flex flex-col-reverse py-3 space-y-5 w-full h-[650px] overflow-y-scroll hide-scrollbar"
+        class="flex flex-col-reverse py-3 space-y-5 w-full h-[600px] overflow-y-scroll hide-scrollbar"
       >
         <ReceiverMessageBubble />
 

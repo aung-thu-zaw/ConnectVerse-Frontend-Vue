@@ -17,7 +17,7 @@ const handleActiveAside = (aside: string) => (activeAside.value = aside as Aside
   <aside
     class="w-full min-w-[350px] md:w-3/12 h-full border-r border-light-secondary dark:border-dark-secondary"
   >
-    <div>
+    <div class="">
       <ChatAside v-if="activeAside === 'chats'" />
       <ContactAside v-else-if="activeAside === 'contacts'" />
       <RecentCallAside v-else-if="activeAside === 'recent-calls'" />
