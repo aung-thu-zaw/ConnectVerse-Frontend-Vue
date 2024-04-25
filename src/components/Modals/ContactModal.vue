@@ -10,6 +10,8 @@ import SolidButton from '@/components/Buttons/SolidButton.vue'
 import type { CountryCode, Result } from 'maz-ui/components/MazPhoneNumberInput'
 import { useContactStore } from '@/stores/contact'
 import type { Contact } from '@/types/contact'
+// @ts-ignore
+import { CirclesToRhombusesSpinner } from 'epic-spinners'
 
 type contactModalMode = 'create' | 'edit'
 
@@ -91,7 +93,8 @@ const handleContact = async () => {
     response = await store.editContact(props.contact.id, form)
   }
 
-  if (response && response.data.status === 'success') {
+  if (response && response?.data.status === 'success') {
+    store.getAllContacts()
     cancelModal()
   }
 }
@@ -172,7 +175,21 @@ const handleContact = async () => {
           <div class="flex items-center justify-end space-x-5">
             <OutlineButton type="button" @click="cancelModal"> Cancel </OutlineButton>
 
-            <SolidButton type="submit"> Save Contact </SolidButton>
+            <SolidButton type="submit">
+              <span v-if="!store.isLoading">
+                {{ mode === 'create' ? 'Save Contact' : 'Save Changes' }}
+                <i class="fa-solid fa-paper-plane ml-3"></i>
+              </span>
+              <div v-else class="flex items-center space-x-1.5">
+                <span> Processing </span>
+                <circles-to-rhombuses-spinner
+                  :animation-duration="1200"
+                  :circles-num="3"
+                  :circle-size="5"
+                  color="#ffffff"
+                />
+              </div>
+            </SolidButton>
           </div>
         </form>
       </div>

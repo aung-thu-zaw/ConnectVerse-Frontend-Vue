@@ -22,18 +22,22 @@ export const useContactStore = defineStore('contact', () => {
   }
 
   const createContact = async (form: ContactForm): Promise<void | AxiosResponse> => {
+    isLoading.value = true
+
     try {
       const response = await axios.post('/user/contacts', { ...form, name: form.name ?? null })
 
       if (!response) throw new Error('Response Not Found!')
 
-      if (response.data.status === 'success') response
+      return response
     } catch (error: any) {
       if (error.response?.data?.message && !error.response?.data?.errors?.length) {
         errors.value = { phone_number: error.response.data.message }
       } else {
         errors.value = error.response?.data?.errors
       }
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -41,6 +45,7 @@ export const useContactStore = defineStore('contact', () => {
     contactId: number,
     form: ContactForm
   ): Promise<void | AxiosResponse> => {
+    isLoading.value = true
     try {
       const response = await axios.patch(`/user/contacts/${contactId}`, {
         ...form,
@@ -49,9 +54,11 @@ export const useContactStore = defineStore('contact', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      if (response.data.status === 'success') response
+      return response
     } catch (error: any) {
       errors.value = error.response?.data?.errors
+    } finally {
+      isLoading.value = false
     }
   }
 
@@ -61,7 +68,7 @@ export const useContactStore = defineStore('contact', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      if (response.data.status === 'success') await getAllContacts()
+      if (response.data.data.status === 'success') await getAllContacts()
     } catch (error: any) {
       console.error(error.response.data)
     }
