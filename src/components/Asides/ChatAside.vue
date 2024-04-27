@@ -3,6 +3,22 @@ import ChatListSearchForm from '@/components/Form/SearchForms/ChatListSearchForm
 import FolderTabs from '@/components/FolderTabs.vue'
 import ChatList from '@/components/ChatList.vue'
 import MainMenuActionDropdown from '@/components/Dropdowns/MainMenuActionDropdown.vue'
+import { inject, onMounted } from 'vue'
+import type { Axios } from 'axios'
+
+const axios = inject('$axios') as Axios
+
+const getChatLists = async () => {
+  try {
+    const response = await axios.get('/user/chat-lists')
+
+    console.log(response)
+  } catch (error: any) {
+    console.error(error)
+  }
+}
+
+onMounted(() => getChatLists())
 </script>
 
 <template>
