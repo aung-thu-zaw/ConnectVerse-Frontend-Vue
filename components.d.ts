@@ -25,6 +25,7 @@ declare module 'vue' {
     ContactModal: typeof import('./src/components/Modals/ContactModal.vue')['default']
     CountBadge: typeof import('./src/components/Badges/CountBadge.vue')['default']
     DropdownItem: typeof import('./src/components/DropdownItem.vue')['default']
+    DropdownItemWithFileInput: typeof import('./src/components/DropdownItemWithFileInput.vue')['default']
     EditContactModal: typeof import('./src/components/Modals/EditContactModal.vue')['default']
     EmojiBoxDropdown: typeof import('./src/components/Dropdowns/EmojiBoxDropdown.vue')['default']
     FolderTabs: typeof import('./src/components/FolderTabs.vue')['default']

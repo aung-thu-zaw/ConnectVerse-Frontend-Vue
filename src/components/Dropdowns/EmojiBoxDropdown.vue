@@ -3,6 +3,7 @@ import EmojiPicker from 'vue3-emoji-picker'
 import 'vue3-emoji-picker/css'
 import { onMounted, onUnmounted, ref } from 'vue'
 
+const emit = defineEmits(['selected-emoji'])
 const dropdownOpen = ref(false)
 const emojiButtonRef = ref<HTMLButtonElement | null>(null)
 const theme = ref<any>(localStorage.getItem('color-theme') || 'dark')
@@ -20,6 +21,8 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+const onSelectEmoji = (emoji: any) => emit('selected-emoji', emoji.i)
 </script>
 
 <template>
@@ -51,6 +54,7 @@ onUnmounted(() => {
           :native="true"
           :static-texts="{ placeholder: 'Search emoji' }"
           :theme="theme"
+          @select="onSelectEmoji"
         />
       </div>
     </div>

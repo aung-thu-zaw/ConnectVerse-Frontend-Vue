@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import DropdownItem from '@/components/DropdownItem.vue'
+import DropdownItemWithFileInput from '@/components/DropdownItemWithFileInput.vue'
+
+const emit = defineEmits(['updated-files'])
 
 const dropdownOpen = ref(false)
 const attachmentButtonRef = ref<HTMLButtonElement | null>(null)
@@ -18,6 +20,8 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+const handleFiles = (value: File) => emit('updated-files', value)
 </script>
 
 <template>
@@ -45,9 +49,24 @@ onUnmounted(() => {
           '-top-[110%] invisible opacity-0': !dropdownOpen
         }"
       >
-        <DropdownItem type="button" icon="fa-solid fa-image" label="Photo" />
-        <DropdownItem type="button" icon="fa-solid fa-film" label="Video" />
-        <DropdownItem type="button" icon="fa-solid fa-file" label="File" />
+        <DropdownItemWithFileInput
+          type="photo"
+          icon="fa-solid fa-image"
+          label="Photo"
+          @updated-files="handleFiles"
+        />
+        <DropdownItemWithFileInput
+          type="video"
+          icon="fa-solid fa-film"
+          label="Video"
+          @updated-files="handleFiles"
+        />
+        <DropdownItemWithFileInput
+          type="file"
+          icon="fa-solid fa-file"
+          label="File"
+          @updated-files="handleFiles"
+        />
       </div>
     </div>
   </div>
