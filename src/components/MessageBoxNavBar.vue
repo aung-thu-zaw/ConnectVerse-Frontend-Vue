@@ -4,7 +4,7 @@ import ChatMenuDropdown from '@/components/Dropdowns/ChatMenuDropdown.vue'
 
 <template>
   <div
-    class="relative border-b border-light-secondary dark:border-dark-secondary p-3 px-8 flex items-center justify-between"
+    class="relative border-b border-light-secondary dark:border-dark-secondary bg-light-background dark:bg-dark-background p-3 px-8 flex items-center justify-between"
   >
     <!-- For User Chat -->
     <div class="flex items-center space-x-3">

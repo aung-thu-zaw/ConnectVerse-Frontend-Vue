@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import CountBadge from '@/components/Badges/CountBadge.vue'
 import Avatar from '@/components/Avatar.vue'
+import type { ChatList } from '@/types/chat'
+
+defineProps<{ chatList: ChatList }>()
 </script>
 
 <template>
